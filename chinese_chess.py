@@ -258,11 +258,14 @@ def is_valid_move_general(start_pos, end_pos):
     start_x, start_y = start_pos
     end_x, end_y = end_pos
 
-    # 将帅只能在九宫内移动
-    if not (0 <= end_x < 3 or 7 <= end_x < 10):
-        return False
-    if not (3 <= end_y < 6):
-        return False
+    piece = board[start_x][start_y]
+    if piece == '红帅':
+        # 红帅只能在自己九宫内活动
+        if not (7 <= end_x < 10 and 3 <= end_y < 6):
+            return False
+    else:  # 黑将
+        if not (0 <= end_x < 3 and 3 <= end_y < 6):
+            return False
 
     dx = abs(start_x - end_x)
     dy = abs(start_y - end_y)
